@@ -9,9 +9,7 @@ user_manager = UserManager(app, db, User)
 
 
 @app.route('/')
-@login_required
 def home_page():
-    # String-based templates
     return render_template('index.html')
 
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Apply Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename = 'css/index.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<nav class="site-header sticky-top py-1">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Job Apply Tracker</h5>
+        {% if current_user.is_authenticated %}
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="#">Applications</a>
+            <a class="p-2 text-dark" href="#">Companies</a>
+            <a class="p-2 text-dark" href="#">Profile</a>
+        </nav>
+        <a class="btn btn-outline-primary" href={{ url_for('user.logout') }}>Sign out</a>
+        {% else %}
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href={{ url_for('user.login') }}>Sign in</a>
+        </nav>
+        <a class="btn btn-outline-primary" href={{ url_for('user.register') }}>Sign up</a>
+        {% endif %}
+
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <div style="width: 100%; height: 10px;"></div>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Applications</span>
+                    <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                    </a>
+                </h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Posts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Companies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Replied
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Rejected
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            No Response
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+                    <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            User info
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            {% if current_user.is_authenticated %}
+                {% block content %}{% endblock %}
+            {% endif %}
+        </main>
+    </div>
+</div>
+</body>
+</html>

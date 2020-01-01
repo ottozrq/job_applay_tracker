@@ -24,8 +24,8 @@ class Job(db.Document):
     location = db.StringField(default='')
     publish_date = db.DateTimeField()
     content = db.StringField(default='')
+    called = db.BooleanField(default=False)
+    tested = db.BooleanField(default=False)
+    interviewed = db.BooleanField(default=False)
+    rejected = db.BooleanField(default=False)
     user_id = db.StringField(default='')
-
-
-
-
