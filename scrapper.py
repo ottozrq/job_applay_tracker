@@ -22,12 +22,13 @@ class LinkedinScrapper:
     def parse(self, url):
         body = self.session.get(url).text
         soup = BeautifulSoup(body, 'html.parser')
-        result = self.find_basic_info(soup)
+        result = self.find_basic_info(soup, url)
         return result
 
     @staticmethod
-    def find_basic_info(soup):
-        result = {}
+    def find_basic_info(soup, url):
+        result = dict()
+        result['url'] = url
         div = soup.find('div', {'class': 'topcard__content-left'})
         title = div.find('h1', {'class': 'topcard__title'})
         result['title'] = title.string

@@ -3,7 +3,7 @@ from flask_user import UserManager, login_required, current_user
 
 from config import app
 from scrapper import LinkedinScrapper
-from model import db, User, Job
+from model import db, User
 import jobs
 
 user_manager = UserManager(app, db, User)
@@ -13,9 +13,9 @@ user_manager = UserManager(app, db, User)
 def index():
     if current_user.is_authenticated:
         username = current_user.username
-        user_jobs = Job.objects(user_name=username)
+        user_jobs = jobs.get_jobs(username)
         result = dict()
-        result['jobs'] = [_serialize(a) for a in user_jobs]
+        result['jobs'] = [a.serialize() for a in user_jobs]
         return render_template('index.html', result=result)
     return render_template('index.html')
 
@@ -30,22 +30,25 @@ def add_job():
     return redirect(url_for('index'))
 
 
-def _serialize(job):
-    print(job)
-    return {
-        'title': job.title,
-        'company': job.company,
-        'location': job.location,
-        'publish_date': job.publish_date,
-        'apply_date': job.apply_date,
-        'content': job.content,
-        'replayed': job.replayed,
-        'called': job.called,
-        'tested': job.tested,
-        'interviewed': job.interviewed,
-        'rejected': job.rejected,
-        'user_name': job.user_name,
-    }
+@app.route('/jobs/delete/<jid>', methods=['POST'])
+@login_required
+def delete_job(jid):
+    jobs.delete_job(jid)
+    return redirect(url_for('index'))
+
+
+@app.route('/jobs/reject/<jid>', methods=['POST'])
+@login_required
+def reject(jid):
+    jobs.job_rejected(jid)
+    return redirect(url_for('index'))
+
+
+@app.route('/jobs/update/<jid>/<status>', methods=['post'])
+@login_required
+def update(jid, status):
+    jobs.job_update_status(jid, status)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

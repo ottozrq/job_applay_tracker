@@ -101,3 +101,11 @@ body {
 .table td {
   overflow: hidden !important;
 }
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: grey;
+}
