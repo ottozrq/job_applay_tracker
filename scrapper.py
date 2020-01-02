@@ -37,7 +37,10 @@ class LinkedinScrapper:
         location = div.find('span', {'class': 'topcard__flavor topcard__flavor--bullet'})
         result['location'] = location.string
         publish_date = div.find('span', {'class': 'topcard__flavor--metadata posted-time-ago__text'})
-        result['publish_date'] = publish_date.string
+        if publish_date:
+            result['publish_date'] = publish_date.string
+        else:
+            result['publish_date'] = '0 days ago'
         content = soup.find('div', {'class': 'description__text description__text--rich'})
         result['content'] = content
         return result
