@@ -64,7 +64,7 @@ class Job(db.Document):
             'company': self.company,
             'location': self.location,
             'publish_date': self.publish_date,
-            'apply_date': self.apply_date,
+            'apply_date': str(self.apply_date)[0:10],
             'content': self.content,
             'status': status,
             'btn': btn,

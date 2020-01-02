@@ -23,7 +23,6 @@
         {% if current_user.is_authenticated %}
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Applications</a>
-            <a class="p-2 text-dark" href="#">Companies</a>
             <a class="p-2 text-dark" href="#">Profile</a>
         </nav>
         <a class="btn btn-outline-primary" href={{ url_for('user.logout') }}>Sign out</a>

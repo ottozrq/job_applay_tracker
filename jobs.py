@@ -5,7 +5,7 @@ from model import Job
 
 
 def get_jobs(username):
-    return Job.objects(user_name=username)
+    return Job.objects(user_name=username).order_by('-apply_date')
 
 
 def add_new_job(json):
