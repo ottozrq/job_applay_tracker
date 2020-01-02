@@ -22,10 +22,14 @@ class Job(db.Document):
     title = db.StringField(default='')
     company = db.StringField(default='')
     location = db.StringField(default='')
-    publish_date = db.DateTimeField()
+    publish_date = db.StringField(default='')
+    apply_date = db.DateTimeField()
     content = db.StringField(default='')
+    replayed = db.BooleanField(default=False)
     called = db.BooleanField(default=False)
     tested = db.BooleanField(default=False)
     interviewed = db.BooleanField(default=False)
     rejected = db.BooleanField(default=False)
-    user_id = db.StringField(default='')
+    user_name = db.StringField(default='')
+
+
