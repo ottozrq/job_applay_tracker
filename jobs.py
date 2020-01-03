@@ -8,6 +8,18 @@ def get_jobs(username):
     return Job.objects(user_name=username).order_by('-apply_date')
 
 
+def get_jobs_rejected(username):
+    return Job.objects(user_name=username, rejected=True).order_by('-apply_date')
+
+
+def get_jobs_replied(username):
+    return Job.objects(user_name=username, replayed=True).order_by('-apply_date')
+
+
+def get_jobs_rien(username):
+    return Job.objects(user_name=username, replayed=False, rejected=False).order_by('-apply_date')
+
+
 def add_new_job(json):
     url = json['url']
     title = json['title']
@@ -35,7 +47,7 @@ def job_rejected(jid):
 
 def job_update_status(jid, status):
     job = Job.objects.get(id=jid)
-    if status == 'replayed':
+    if status == 'replied':
         job.update(replayed=True)
     elif status == 'called':
         job.update(called=True)

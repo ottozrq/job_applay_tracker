@@ -52,11 +52,11 @@ class Job(db.Document):
             status = 'called'
             btn = 'tested'
         elif self.replayed:
-            status = 'replayed'
+            status = 'replied'
             btn = 'called'
         else:
             status = ' - '
-            btn = 'replayed'
+            btn = 'replied'
         return {
             'id': self.id,
             'url': self.url,

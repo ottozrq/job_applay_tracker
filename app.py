@@ -16,8 +16,35 @@ def index():
         user_jobs = jobs.get_jobs(username)
         result = dict()
         result['jobs'] = [a.serialize() for a in user_jobs]
-        return render_template('index.html', result=result)
+        return render_template('index.html', result=result, title='Applications')
     return render_template('index.html')
+
+
+@app.route('/rejected')
+def rejected():
+    username = current_user.username
+    user_jobs = jobs.get_jobs_rejected(username)
+    result = dict()
+    result['jobs'] = [a.serialize() for a in user_jobs]
+    return render_template('index.html', result=result, title='Rejected')
+
+
+@app.route('/replied')
+def replied():
+    username = current_user.username
+    user_jobs = jobs.get_jobs_replied(username)
+    result = dict()
+    result['jobs'] = [a.serialize() for a in user_jobs]
+    return render_template('index.html', result=result, title='Replied')
+
+
+@app.route('/rien')
+def rien():
+    username = current_user.username
+    user_jobs = jobs.get_jobs_rien(username)
+    result = dict()
+    result['jobs'] = [a.serialize() for a in user_jobs]
+    return render_template('index.html', result=result, title='No Response')
 
 
 @app.route('/jobs/add', methods=['POST'])
