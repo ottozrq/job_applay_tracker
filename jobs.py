@@ -8,6 +8,10 @@ def get_jobs(username):
     return Job.objects(user_name=username).order_by('-apply_date')
 
 
+def get_job_by_id(jid):
+    return Job.objects.get(id=jid)
+
+
 def get_jobs_rejected(username):
     return Job.objects(user_name=username, rejected=True).order_by('-apply_date')
 
@@ -57,4 +61,33 @@ def job_update_status(jid, status):
         job.update(interviewed=True)
     elif status == 'accepted':
         job.update(accepted=True)
+    job.save()
+
+
+def job_update_status_checkbox(jid, checkboxes):
+    job = Job.objects.get(id=jid)
+    if 'replied' in checkboxes:
+        job.update(replayed=True)
+    else:
+        job.update(replayed=False)
+    if 'called' in checkboxes:
+        job.update(called=True)
+    else:
+        job.update(called=False)
+    if 'tested' in checkboxes:
+        job.update(tested=True)
+    else:
+        job.update(tested=False)
+    if 'interviewed' in checkboxes:
+        job.update(interviewed=True)
+    else:
+        job.update(interviewed=False)
+    if 'accepted' in checkboxes:
+        job.update(accepted=True)
+    else:
+        job.update(accepted=False)
+    if 'rejected' in checkboxes:
+        job.update(rejected=True)
+    else:
+        job.update(rejected=False)
     job.save()

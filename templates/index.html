@@ -45,7 +45,7 @@
             <td>{{ job.status }}</td>
             <td>
                 <div class="btn-group mr-2">
-                    <form action="{{ job.url }}" method="get">
+                    <form action="/jobs/get/{{ job.id }}" method="get">
                         <button type="submit" class="btn btn-sm btn-outline-info mr-1">detail</button>
                     </form>
                     <form action="/jobs/update/{{ job.id }}/{{ job.btn }}" method="post">
@@ -64,8 +64,4 @@
         </tbody>
     </table>
 </div>
-
-<script>
-
-</script>
 {% endblock %}

@@ -47,6 +47,13 @@ def rien():
     return render_template('index.html', result=result, title='No Response')
 
 
+@app.route('/jobs/get/<jid>', methods=['GET'])
+@login_required
+def get_job(jid):
+    job = jobs.get_job_by_id(jid)
+    return render_template('job.html', job=job)
+
+
 @app.route('/jobs/add', methods=['POST'])
 @login_required
 def add_job():
@@ -55,6 +62,14 @@ def add_job():
     result = ls.parse(url)
     jobs.add_new_job(result)
     return redirect(url_for('index'))
+
+
+@app.route('/jobs/edit/<jid>', methods=['POST'])
+@login_required
+def edit_job(jid):
+    result = request.form
+    jobs.job_update_status_checkbox(jid, result)
+    return redirect('/jobs/get/' + jid)
 
 
 @app.route('/jobs/delete/<jid>', methods=['POST'])
