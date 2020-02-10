@@ -33,7 +33,10 @@ class LinkedinScrapper:
         title = div.find('h1', {'class': 'topcard__title'})
         result['title'] = title.string
         company = div.find('a', {'class': 'topcard__org-name-link topcard__flavor--black-link'})
-        result['company'] = company.string
+        if company:
+            result['company'] = company.string
+        else:
+            result['company'] = ' - '
         location = div.find('span', {'class': 'topcard__flavor topcard__flavor--bullet'})
         result['location'] = location.string
         publish_date = div.find('span', {'class': 'topcard__flavor--metadata posted-time-ago__text'})
